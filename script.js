@@ -1,19 +1,14 @@
 
-// Mobile nav
 function toggleMenu(){
   const links = document.querySelector('.nav__links');
   links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
 }
 
-// Intersection-driven fade-ins
 const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting){ e.target.classList.add('is-visible'); }
-  });
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('is-visible'); } });
 }, {threshold: .22});
 document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 
-// Count-up stats
 function animateCounts(){
   document.querySelectorAll('.stat__num').forEach(el => {
     const target = parseInt(el.dataset.count,10);
@@ -28,11 +23,12 @@ function animateCounts(){
 }
 window.addEventListener('load', animateCounts);
 
-// Back to top
 function scrollToTop(){ window.scrollTo({top:0, behavior:'smooth'}); }
-document.getElementById('year').textContent = new Date().getFullYear();
+document.addEventListener('DOMContentLoaded', ()=>{
+  const y = document.getElementById('year');
+  if(y) y.textContent = new Date().getFullYear();
+});
 
-// Lightweight form handler (no backend): open mail client with prefilled body
 function onSubmit(e){
   e.preventDefault();
   const f = e.target;
@@ -47,9 +43,9 @@ Year: ${data.get('year')}
 Interested in: ${interests}
 Notes: ${data.get('notes') || ''}`
   );
-  // Change the email address below if needed
   const to = 'hello@shehonlearning.com';
   window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-  document.getElementById('form-status').textContent = 'Opening your email app…';
+  const status = document.getElementById('form-status');
+  if(status) status.textContent = 'Opening your email app…';
   return false;
 }
