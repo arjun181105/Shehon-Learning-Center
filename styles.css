@@ -1,5 +1,5 @@
-:
-root{
+
+:root{
   --bg:#F7FAFC;
   --surface:#FFFFFF;
   --muted:#4A5568;
@@ -103,7 +103,7 @@ input:focus, select:focus, textarea:focus{outline-color:var(--ring)}
 .fade-in{opacity:0;transform:translateY(6px)}
 .fade-in.is-visible{opacity:1;transform:none;transition:.6s ease}
 
-/* Slide-in mobile menu */
+/* Mobile slide-in nav */
 body.no-scroll{overflow:hidden}
 @media (max-width: 920px){
   .nav{position:relative}

@@ -30,6 +30,7 @@ function toggleMenu(){
   }
 }
 
+// Animations / observers
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('is-visible'); } });
 }, {threshold: .22});
@@ -49,9 +50,18 @@ function animateCounts(){
 }
 window.addEventListener('load', animateCounts);
 
+function scrollToTop(){ window.scrollTo({top:0, behavior:'smooth'}); }
 document.addEventListener('DOMContentLoaded', ()=>{
   const y = document.getElementById('year');
   if(y) y.textContent = new Date().getFullYear();
+});
+
+window.addEventListener('resize', ()=>{
+  if(window.innerWidth > 920){
+    document.querySelector('.nav__links')?.classList.remove('is-open');
+    document.querySelector('.nav-backdrop')?.classList.remove('is-active');
+    document.body.classList.remove('no-scroll');
+  }
 });
 
 function onSubmit(e){
@@ -70,9 +80,6 @@ Notes: ${data.get('notes') || ''}`
   );
   const to = 'hello@shehonlearning.com';
   window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-  const status = document.getElementById('form-status');
-  if(status) status.textContent = 'Opening your email app…';
+  document.getElementById('form-status')?.textContent = 'Opening your email app…';
   return false;
 }
-
-function scrollToTop(){ window.scrollTo({top:0, behavior:'smooth'}); }
