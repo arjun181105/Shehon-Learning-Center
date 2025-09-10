@@ -1,36 +1,9 @@
 
 function toggleMenu(){
   const links = document.querySelector('.nav__links');
-  if(!links) return;
-
-  let backdrop = document.querySelector('.nav-backdrop');
-  if(!backdrop){
-    backdrop = document.createElement('div');
-    backdrop.className = 'nav-backdrop';
-    document.body.appendChild(backdrop);
-    backdrop.addEventListener('click', closeMenu);
-  }
-
-  const isOpen = links.classList.toggle('is-open');
-  backdrop.classList.toggle('is-active', isOpen);
-  document.body.classList.toggle('no-scroll', isOpen);
-
-  if(isOpen){
-    document.addEventListener('keydown', escHandler);
-  }else{
-    document.removeEventListener('keydown', escHandler);
-  }
-
-  function escHandler(e){ if(e.key === 'Escape'){ closeMenu(); } }
-  function closeMenu(){
-    links.classList.remove('is-open');
-    backdrop.classList.remove('is-active');
-    document.body.classList.remove('no-scroll');
-    document.removeEventListener('keydown', escHandler);
-  }
+  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
 }
 
-// Animations / observers
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('is-visible'); } });
 }, {threshold: .22});
@@ -56,14 +29,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(y) y.textContent = new Date().getFullYear();
 });
 
-window.addEventListener('resize', ()=>{
-  if(window.innerWidth > 920){
-    document.querySelector('.nav__links')?.classList.remove('is-open');
-    document.querySelector('.nav-backdrop')?.classList.remove('is-active');
-    document.body.classList.remove('no-scroll');
-  }
-});
-
 function onSubmit(e){
   e.preventDefault();
   const f = e.target;
@@ -80,6 +45,7 @@ Notes: ${data.get('notes') || ''}`
   );
   const to = 'hello@shehonlearning.com';
   window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-  document.getElementById('form-status')?.textContent = 'Opening your email app…';
+  const status = document.getElementById('form-status');
+  if(status) status.textContent = 'Opening your email app…';
   return false;
 }
