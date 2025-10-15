@@ -135,7 +135,7 @@ Year: ${data.get('year')}
 Interested in: ${interests}
 Notes: ${data.get('notes') || ''}`
   );
-  const to = 'hello@shehonlearning.com';
+  const to = 'info@shehonlearning.com';
   window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   const status = document.getElementById('form-status');
   if(status) status.textContent = 'Opening your email app…';
